@@ -7,6 +7,7 @@ import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 
 import UserList from './user_list';
 import TaskList from './task_list';
+import AddTaskForm from './add_task_form';
 
 export default function root_init(node) {
   let tasks = window.tasks;
@@ -78,6 +79,10 @@ class Root extends React.Component {
       data: JSON.stringify(req),
       success: on_success,
     });
+
+  // create_new_task() {
+  //
+  // }
   }
 
 
@@ -87,8 +92,14 @@ class Root extends React.Component {
         <div>
           <Header root={this} />
           <Route path="/" exact={true} render={() =>
-            <TaskList tasks={this.state.tasks} />
+            <div>
+              <TaskList tasks={this.state.tasks} />
+              <h4><Link to={"/add_task_form"}>Add Task</Link></h4>
+            </div>
           } />
+        <Route path="/add_task_form" exact={true} render={() =>
+            <AddTaskForm root={this} tasks={this.state.tasks}/>
+        } />
           <Route path="/users" exact={true} render={() =>
             <UserList users={this.state.users} />
           } />
@@ -97,7 +108,6 @@ class Root extends React.Component {
     </div>;
   }
 }
-
 
 function Header(props) {
   let {root} = props;
