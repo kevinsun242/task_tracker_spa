@@ -10,6 +10,7 @@ import api from './api';
 import UserList from './user_list';
 import TaskList from './task_list';
 import AddTaskForm from './add_task_form';
+import EditTaskForm from './edit_task_form';
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -37,9 +38,12 @@ class Root extends React.Component {
               <h4><Link to={"/add_task_form"}>Add Task</Link></h4>
             </div>
           } />
-        <Route path="/add_task_form" exact={true} render={() =>
-            <AddTaskForm />
-        } />
+          <Route path="/add_task_form" exact={true} render={() =>
+              <AddTaskForm />
+          } />
+        <Route path="/edit_task_form/:id" exact={true} render={() =>
+              <EditTaskForm />
+          } />
           <Route path="/users" exact={true} render={() =>
             <UserList />
           } />

@@ -61,10 +61,12 @@ class TheServer {
   add_task() {
     let title = $("#new-title").val();
     let description = $("#new-description").val();
+    let assignee = $("#assignee").val();
     let text =  JSON.stringify({
         task: {
           title: title,
           desc: description,
+          user_id: assignee,
         },
       });
     $.ajax("/api/v1/tasks", {
@@ -79,8 +81,8 @@ class TheServer {
         });
       },
     });
-
   }
+
   delete_task(task_id) {
     $.ajax('/api/v1/tasks/' + task_id, {
       method: "delete",
@@ -94,6 +96,55 @@ class TheServer {
         });
       }
     });
+  }
+
+  update_task(task_id) {
+    if ($("#new-title").val() == '') {
+      var title = $("new-title").attr('placeholder');
+    }
+    else {
+      title = $("#new-title").val();
+    }
+
+    if ($("#new-description").val() == '') {
+      var description = $("new-description").attr('placeholder');
+    }
+    else {
+      description = $("#new-description").val();
+    }
+    let assignee = $("#assignee").val();
+    let text =  JSON.stringify({
+      task: {
+        title: title,
+        desc: description,
+        user_id: assignee,
+      },
+    });
+    $.ajax('/api/v1/tasks/' + task_id, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: text,
+      success: (resp) => {
+        store.dispatch({
+          type: 'TASK_UPDATE',
+          task_id: task_id,
+        });
+        this.fetch_tasks();
+      }
+    });
+  }
+
+  get_task(task_id) {
+    this.fetch_path(
+      "/api/v1/tasks/" + task_id,
+      (resp) => {
+        store.dispatch({
+          type: 'TASK_GET',
+          data: resp.data,
+        });
+      }
+    );
   }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import api from './api';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
 function TaskList(props) {
@@ -15,6 +16,7 @@ function TaskList(props) {
             <th>Description</th>
             <th>Completed</th>
             <th>Duration</th>
+            <th>Assignee</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -33,10 +35,11 @@ function Task(props) {
     <td>{task.title}</td>
     <td>{task.desc}</td>
     <td>{task.completed ? "yes" : "no"}</td>
-    <td></td>
+    <td>{task.duration}</td>
+    <td>{task.user_id}</td>
     <td>
-      <button>Edit</button>
-      <button onClick={() => { api.delete_task(task.id)}}> Delete</button>
+      <Link className="btn btn-primary" to={"/edit_task_form/"+task.id} onClick={()=> {api.get_task(task.id)}}>Edit</Link>
+      <button className="btn btn-danger" onClick={() => { api.delete_task(task.id)}}> Delete</button>
     </td>
   </tr>;
 }

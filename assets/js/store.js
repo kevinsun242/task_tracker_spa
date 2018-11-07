@@ -16,10 +16,21 @@ function tasks(state = [], action) {
     return action.data;
   case 'TASK_CREATE':
     return state;
+  case 'TASK_UPDATE':
+    return state;
   case 'TASK_DELETE':
     return _.filter(state, (task) => task.id != action.task_id);
   default:
     return state;
+  }
+}
+
+function current_task_edit(state=new Map(), action) {
+  switch(action.type) {
+    case 'TASK_GET':
+      return action.data;
+    default:
+      return state;
   }
 }
 
@@ -38,24 +49,13 @@ function session(state = null, action) {
     return action.data;
   default:
     return state;
+  }
 }
-}
-
-// function add_task_forms(state = new Map(), action) {
-//   console.log("here");
-//   switch (action.type) {
-//   case 'ADD_TASK_FORM':
-//     let state1 = new Map(state);
-//     return state1;
-//   default:
-//     return state;
-//   }
-// }
 
 function root_reducer(state0, action) {
   console.log("reducer", state0, action);
 
-  let reducer = combineReducers({tasks, users, session});
+  let reducer = combineReducers({tasks, users, session, current_task_edit});
   let state1 = reducer(state0, action);
 
   console.log("reducer1", state1);
