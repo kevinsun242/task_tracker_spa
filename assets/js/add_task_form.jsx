@@ -9,7 +9,7 @@ export default function AddTaskForm(props) {
     <p className="form">
        Title <input className="form-control" id="new-title" type="text" />
      Description<input className="form-control" id="new-description" type="text"/>
-   <Link to="/" onClick={(event) => { api.add_task(); api.fetch_tasks();}}
+   <Link to="/" onClick={() => { api.add_task(); api.fetch_tasks();}}
      id="new-description" className="btn btn-primary">
          Create Task
     </Link>

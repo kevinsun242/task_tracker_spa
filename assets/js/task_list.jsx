@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import api from './api';
 
 
 function TaskList(props) {
@@ -35,8 +36,8 @@ function Task(props) {
     <td></td>
     <td>
       <button>Edit</button>
-      <button>Delete</button>
-       </td>
+      <button onClick={() => { api.delete_task(task.id)}}> Delete</button>
+    </td>
   </tr>;
 }
 

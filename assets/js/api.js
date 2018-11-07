@@ -81,6 +81,21 @@ class TheServer {
     });
 
   }
+  delete_task(task_id) {
+    $.ajax('/api/v1/tasks/' + task_id, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: "",
+      success: (resp) => {
+        store.dispatch({
+          type: 'TASK_DELETE',
+          task_id: task_id,
+        });
+      }
+    });
+  }
 }
+
 
 export default new TheServer();

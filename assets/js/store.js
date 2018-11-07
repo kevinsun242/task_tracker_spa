@@ -16,6 +16,8 @@ function tasks(state = [], action) {
     return action.data;
   case 'TASK_CREATE':
     return state;
+  case 'TASK_DELETE':
+    return _.filter(state, (task) => task.id != action.task_id);
   default:
     return state;
   }
