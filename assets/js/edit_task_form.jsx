@@ -7,9 +7,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default connect((state) => {return {current_task_edit: state.current_task_edit, users: state.users};})((props) => {
   let task = props.current_task_edit;
-  console.log(task);
   return <div className="row">
-    <p className="form">
+    <div className="form">
       Title <input className="form-control" id="new-title" type="text" placeholder={task.title} />
       Description<input className="form-control" id="new-description" type="text" placeholder={task.desc}/>
       Assignee
@@ -18,15 +17,17 @@ export default connect((state) => {return {current_task_edit: state.current_task
             return <option key={key} value={e.id}>{e.first_name}</option>;
         })}
      </select>
-     Completed<input type="checkbox" value={task.completed}/>
-     Duration
 
+     <div>
+       Completed<input id="completed" type="checkbox" value={task.completed}/>
+     </div>
+     <div>
+       Duration
+     </div>
     <Link to="/" onClick={() => { api.update_task(task.id);}}
        id="new-description" className="btn btn-primary">
            Update Task
      </Link>
-     </p>
+   </div>
   </div>;
 });
-
-// export default connect((state) => {return {current_task_edit: state.current_task_edit, users: state.users};})(EditTaskForm);

@@ -38,6 +38,8 @@ function users(state = [], action) {
   switch (action.type) {
   case 'USER_LIST':
     return action.data;
+  case 'USER_CREATE':
+    return state;
   default:
     return state;
   }
@@ -47,6 +49,8 @@ function session(state = null, action) {
   switch (action.type) {
   case 'NEW_SESSION':
     return action.data;
+  case 'DELETE_SESSION':
+    return null;
   default:
     return state;
   }

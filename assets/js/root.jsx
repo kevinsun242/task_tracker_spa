@@ -11,6 +11,8 @@ import UserList from './user_list';
 import TaskList from './task_list';
 import AddTaskForm from './add_task_form';
 import EditTaskForm from './edit_task_form';
+import Header from './header';
+import RegisterForm from './register'
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -22,7 +24,7 @@ export default function root_init(node, store) {
 class Root extends React.Component {
   constructor(props) {
     super(props);
-    api.create_session("bob@example.com", "pass1");
+    // api.create_session("bob@example.com", "pass1");
     api.fetch_tasks();
     api.fetch_users();
   }
@@ -41,6 +43,9 @@ class Root extends React.Component {
           <Route path="/add_task_form" exact={true} render={() =>
               <AddTaskForm />
           } />
+        <Route path="/register" exact={true} render={() =>
+              <RegisterForm />
+          } />
         <Route path="/edit_task_form/:id" exact={true} render={() =>
               <EditTaskForm />
           } />
@@ -51,22 +56,4 @@ class Root extends React.Component {
       </Router>
     </div>;
   }
-}
-
-function Header(props) {
-  return <div className="row my-2">
-    <div className="col-4">
-      <h1><Link to={"/"} onClick={() => api.fetch_tasks()}>Task Tracker</Link></h1>
-    </div>
-    <div className="col-2">
-      <p><Link to={"/users"} onClick={() => api.fetch_users()}>Users</Link></p>
-    </div>
-    <div className="col-6">
-      <div className="form-inline my-2">
-        <input type="email" placeholder="email" />
-        <input type="password" placeholder="password" />
-        <button className="btn btn-secondary">Login</button>
-      </div>
-    </div>
-  </div>;
 }

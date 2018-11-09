@@ -58,6 +58,40 @@ class TheServer {
     );
   }
 
+  logout() {
+    store.dispatch({
+      type: 'DELETE_SESSION',
+    });
+  }
+
+  create_user() {
+    let first_name = $("#new-first").val();
+    let last_name = $("#new-last").val();
+    let email = $("#new-email").val();
+    let password = $("#new-password").val();
+    let text =  JSON.stringify({
+        user: {
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          password_hash: password,
+        },
+      });
+    $.ajax("/api/v1/users", {
+      type: "POST",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: text,
+      success: (resp) => {
+        store.dispatch({
+          type: 'USER_CREATE',
+          data: resp.data,
+        });
+        this.create_session(email, password)
+      },
+    });
+  }
+
   add_task() {
     let title = $("#new-title").val();
     let description = $("#new-description").val();
@@ -113,11 +147,13 @@ class TheServer {
       description = $("#new-description").val();
     }
     let assignee = $("#assignee").val();
+    let completed = $("#completed").is(":checked");
     let text =  JSON.stringify({
       task: {
         title: title,
         desc: description,
         user_id: assignee,
+        completed: completed
       },
     });
     $.ajax('/api/v1/tasks/' + task_id, {
