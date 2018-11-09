@@ -16,7 +16,7 @@ defmodule TaskTracker.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :desc, :completed, :user_id])
+    |> cast(attrs, [:title, :desc, :completed, :user_id, :duration])
     |> unique_constraint(:title)
     |> validate_required([:title, :desc])
   end
