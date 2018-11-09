@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 function TaskList(props) {
   var display;
   if (props.session) {
-    let tasks = _.map(props.tasks, (t) => <Task key={t.id} task={t} />);
+    let tasks = _.map(props.tasks, (t) => <Task key={t.id} task={t} session={props.session} />);
     display =
     (<div className="col-12">
       <table className="table table-striped">
@@ -47,8 +47,8 @@ function Task(props) {
     <td>{task.duration}</td>
     <td>{task.user_id}</td>
     <td>
-      <Link className="btn btn-primary" to={"/edit_task_form/"+task.id} onClick={()=> {api.get_task(task.id)}}>Edit</Link>
-      <button className="btn btn-danger" onClick={() => { api.delete_task(task.id)}}> Delete</button>
+      <Link className="btn btn-primary" to={"/edit_task_form/"+task.id} onClick={()=> {api.get_task(task.id, props.session.token)}}>Edit</Link>
+      <button className="btn btn-danger" onClick={() => { api.delete_task(task.id, props.session.token)}}> Delete</button>
     </td>
   </tr>;
 }
