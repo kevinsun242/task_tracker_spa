@@ -6,9 +6,11 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
 function TaskList(props) {
-  let tasks = _.map(props.tasks, (t) => <Task key={t.id} task={t} />);
-  return <div className="row">
-    <div className="col-12">
+  var display;
+  if (props.session) {
+    let tasks = _.map(props.tasks, (t) => <Task key={t.id} task={t} />);
+    display =
+    (<div className="col-12">
       <table className="table table-striped">
         <thead>
           <tr>
@@ -24,7 +26,14 @@ function TaskList(props) {
           {tasks}
         </tbody>
       </table>
-    </div>
+      <h4><Link to={"/add_task_form"}>Add Task</Link></h4>
+    </div>)
+  }
+  else {
+    display = (<div></div>)
+  }
+  return <div className="row">
+      {display}
   </div>;
 }
 
@@ -44,4 +53,4 @@ function Task(props) {
   </tr>;
 }
 
-export default connect((state) => {return {tasks: state.tasks};})(TaskList);
+export default connect((state) => {return {tasks: state.tasks, session: state.session};})(TaskList);

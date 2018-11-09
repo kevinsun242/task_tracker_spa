@@ -36,7 +36,6 @@ class Root extends React.Component {
           <Route path="/" exact={true} render={() =>
             <div>
               <TaskList />
-              <h4><Link to={"/add_task_form"}>Add Task</Link></h4>
             </div>
           } />
           <Route path="/add_task_form" exact={true} render={() =>
