@@ -24,7 +24,6 @@ export default function root_init(node, store) {
 class Root extends React.Component {
   constructor(props) {
     super(props);
-    // api.create_session("bob@example.com", "pass1");
     api.fetch_tasks();
     api.fetch_users();
   }

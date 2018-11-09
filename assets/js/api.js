@@ -148,12 +148,21 @@ class TheServer {
     }
     let assignee = $("#assignee").val();
     let completed = $("#completed").is(":checked");
+    let duration = $("#duration").val();
+    var minutes = duration % 60;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var hours = Math.floor(duration / 60);
+    hours = hours < 10 ? '0' + hours : hours;
+    let time = hours + ":" + minutes +":00";
+    console.log(time);
+
     let text =  JSON.stringify({
       task: {
         title: title,
         desc: description,
         user_id: assignee,
-        completed: completed
+        completed: completed,
+        duration: time,
       },
     });
     $.ajax('/api/v1/tasks/' + task_id, {

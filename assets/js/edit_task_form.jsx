@@ -22,7 +22,8 @@ export default connect((state) => {return {current_task_edit: state.current_task
        Completed<input id="completed" type="checkbox" value={task.completed}/>
      </div>
      <div>
-       Duration
+       Duration <input id="duration" type="number" min="0" step="15"/> minutes
+
      </div>
     <Link to="/" onClick={() => { api.update_task(task.id);}}
        id="new-description" className="btn btn-primary">
