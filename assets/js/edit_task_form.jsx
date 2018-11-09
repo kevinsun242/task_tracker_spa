@@ -5,7 +5,7 @@ import api from './api';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
-export default connect((state) => {return {current_task_edit: state.current_task_edit, users: state.users};})((props) => {
+export default connect((state) => {return {current_task_edit: state.current_task_edit, users: state.users, session: state.session};})((props) => {
   let task = props.current_task_edit;
   return <div className="row">
     <div className="form">
@@ -25,7 +25,7 @@ export default connect((state) => {return {current_task_edit: state.current_task
        Duration <input id="duration" type="number" min="0" step="15"/> minutes
 
      </div>
-    <Link to="/" onClick={() => { api.update_task(task.id);}}
+    <Link to="/" onClick={() => { api.update_task(task.id, props.session.token);}}
        id="new-description" className="btn btn-primary">
            Update Task
      </Link>

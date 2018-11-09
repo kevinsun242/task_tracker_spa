@@ -92,7 +92,7 @@ class TheServer {
     });
   }
 
-  add_task() {
+  add_task(token) {
     let title = $("#new-title").val();
     let description = $("#new-description").val();
     let assignee = $("#assignee").val();
@@ -102,6 +102,7 @@ class TheServer {
           desc: description,
           user_id: assignee,
         },
+        token: token,
       });
     $.ajax("/api/v1/tasks", {
       type: "POST",
@@ -117,12 +118,12 @@ class TheServer {
     });
   }
 
-  delete_task(task_id) {
+  delete_task(task_id, token) {
     $.ajax('/api/v1/tasks/' + task_id, {
       method: "delete",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
-      data: "",
+      data: JSON.stringify({token:token}),
       success: (resp) => {
         store.dispatch({
           type: 'TASK_DELETE',
@@ -132,7 +133,7 @@ class TheServer {
     });
   }
 
-  update_task(task_id) {
+  update_task(task_id, token) {
     if ($("#new-title").val() == '') {
       var title = $("new-title").attr('placeholder');
     }
@@ -164,6 +165,7 @@ class TheServer {
         completed: completed,
         duration: time,
       },
+      token: token,
     });
     $.ajax('/api/v1/tasks/' + task_id, {
       method: "put",

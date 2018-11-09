@@ -17,7 +17,7 @@ function AddTaskForm(props) {
          })}
       </select>
 
-   <Link to="/" onClick={() => { api.add_task(); api.fetch_tasks();}}
+   <Link to="/" onClick={() => { api.add_task(props.session.token); api.fetch_tasks();}}
      id="new-description" className="btn btn-primary">
          Create Task
     </Link>
@@ -25,4 +25,4 @@ function AddTaskForm(props) {
   </div>;
 }
 
-export default connect((state) => {return {users: state.users};})(AddTaskForm);
+export default connect((state) => {return {users: state.users, session: state.session};})(AddTaskForm);
